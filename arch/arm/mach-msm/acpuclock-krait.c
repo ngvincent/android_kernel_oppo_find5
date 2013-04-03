@@ -53,7 +53,11 @@
 /* PTE EFUSE register offset. */
 #define PTE_EFUSE		0xC0
 
+#ifdef CONFIG_LOW_CPUCLOCKS
+#define FREQ_TABLE_SIZE		41
+#else
 #define FREQ_TABLE_SIZE		37
+#endif
 
 static DEFINE_MUTEX(driver_lock);
 static DEFINE_SPINLOCK(l2_lock);

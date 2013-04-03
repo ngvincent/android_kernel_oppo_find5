@@ -1597,6 +1597,12 @@ config MSM_CPU_AVS
 	  in Qualcomm ARMv7 CPUs. It adjusts the voltage for each frequency
 	  based on feedback from three ring oscillators in the CPU.
 
+config LOW_CPUCLOCKS
+	bool "Enable ultra low CPU clocks"
+	default n
+	help
+	  Ultra low cpu frequencies enabled for CPU and L2 Cache
+
 config INTELLI_PLUG
 	bool "Enable intelli-plug cpu hotplug driver"
 	default n
