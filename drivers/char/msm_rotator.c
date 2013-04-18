@@ -1437,16 +1437,32 @@ static int msm_rotator_start(unsigned long arg,
 	case MDP_Y_CRCB_H2V2:
 	case MDP_Y_CRCB_H2V2_TILE:
 	case MDP_Y_CBCR_H2V2_TILE:
-		if (rotator_hw_revision >= ROTATOR_REVISION_V2 &&
-			!(info.downscale_ratio &&
-			(info.rotations & MDP_ROT_90)))
-			fast_yuv_en = !fast_yuv_invalid_size_checker(
-						info.rotations,
-						info.src.width,
-						dst_w,
-						dst_h,
-						dst_w,
-						is_planar420);
+		if (rotator_hw_revision >= ROTATOR_REVISION_V2) {
+
+			if (!info.downscale_ratio) {
+				fast_yuv_en = !fast_yuv_invalid_size_checker(
+							     info.rotations,
+							     info.src.width,
+							     dst_w,
+							     dst_h,
+							     dst_w,
+							     is_planar420);
+			} else if ((info.src.width == 1920) &&
+				   (info.downscale_ratio == 1) &&
+				   (!info.rotations)) {
+				/*
+				 * Also allow fast_yuv when down scaling
+				 * 1080p to 720p without rotations
+				 */
+				fast_yuv_en = !fast_yuv_invalid_size_checker(
+							     info.rotations,
+							     info.src.width,
+							     info.dst.width,
+							     info.dst.height,
+							     info.dst.width,
+							     is_planar420);
+			}
+		}
 	break;
 	default:
 		fast_yuv_en = 0;
