@@ -347,7 +347,7 @@ apq8064_pm8921_rtc_pdata = {
 	.rtc_write_enable       = false,
 	.rtc_alarm_powerup      = false,
 #else
-	.rtc_write_enable       = false,
+	.rtc_write_enable       = true,
 	.rtc_alarm_powerup      = true,
 #endif
 /* OPPO 2012-09-19 liujun Modify end */
