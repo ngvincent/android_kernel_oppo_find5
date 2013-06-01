@@ -172,6 +172,10 @@ enum{
 
 static int ftm_mode = 0;
 
+#ifdef CONFIG_CPU_FREQ_GOV_INTELLIDEMAND
+int id_set_two_phase_freq(int cpufreq);
+#endif
+
 int __init board_mfg_mode_init(char *s)
 {
 	if (!strcmp(s, "normal"))
@@ -3965,6 +3969,11 @@ static void __init apq8064_rumi3_init(void)
 
 static void __init apq8064_cdp_init(void)
 {
+
+#ifdef CONFIG_CPU_FREQ_GOV_INTELLIDEMAND
+	id_set_two_phase_freq(1134000);
+#endif
+
 	if (meminfo_init(SYS_MEMORY, SZ_256M) < 0)
 		pr_err("meminfo_init() failed!\n");
 	apq8064_common_init();
