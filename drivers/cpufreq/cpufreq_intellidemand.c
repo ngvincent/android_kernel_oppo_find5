@@ -87,10 +87,10 @@ static unsigned long stored_sampling_rate;
 #define POWERSAVE_BIAS_MINLEVEL			(-1000)
 
 /* have the timer rate booted for this much time 2.5s*/
-#define TIMER_RATE_BOOST_TIME 2500000
+#define TIMER_RATE_BOOST_TIME 3500000
 static int sampling_rate_boosted;
 static u64 sampling_rate_boosted_time;
-static unsigned int current_sampling_rate;
+static unsigned int current_sampling_rate = DEF_SAMPLING_RATE;
 
 #ifdef CONFIG_CPUFREQ_ID_PERFLOCK
 static unsigned int saved_policy_min;
@@ -1729,6 +1729,7 @@ static int input_dev_filter(const char *input_dev_name)
 {
 	if (strstr(input_dev_name, "touchscreen") ||
 		strstr(input_dev_name, "-keypad") ||
+		strstr(input_dev_name, "synaptics-rmi-ts") ||
 		strstr(input_dev_name, "-nav") ||
 		strstr(input_dev_name, "-oj")) {
 		return 0;
